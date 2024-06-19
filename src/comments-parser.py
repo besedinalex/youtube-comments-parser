@@ -78,6 +78,10 @@ while True:
     comments = parse_raw_comment_data(comment_raw)
     total_comments += len(comments)
     csv_writer.writerows(comments)
+log("Parsed {comments} comments from {lines} lines".format(
+    lines=raw_lines,
+    comments=total_comments,
+))
 
 raw_data_file.close()
 output_file.close()
