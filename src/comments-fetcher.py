@@ -18,7 +18,7 @@ def log(msg):
     print(get_curr_datetime(), msg)
 
 def get_root_dir() -> str:
-    return path.dirname(__file__)[:-3] # To remove src part
+    return path.dirname(__file__)[:-len("src")]
 
 def load_google_api_key() -> str:
     key_path = path.join(get_root_dir(), "secrets/google-api-key")
@@ -92,8 +92,7 @@ try:
 except:
     raise Exception("YouTube video ID is not provided. It should be provided as an argument.\n"
                     "E.g. if url is https://www.youtube.com/watch?v=dQw4w9WgXcQ\n"
-                    "then run this: python main.py dQw4w9WgXcQ\n"
-                    "or like this to be safe: python main.py 'dQw4w9WgXcQ'")
+                    "then run this: python src/comments-fetcher.py 'dQw4w9WgXcQ'")
 log("Fetching comments for video https://www.youtube.com/watch?v={}".format(video_id))
 google_api_key = load_google_api_key()
 fetch_url = prepare_youtube_fetch_url(google_api_key, video_id)
@@ -107,3 +106,4 @@ output_file_path = path.join(output_dir_path, "{video_id}_{time}.json".format(
 output_file = open(output_file_path, "w")
 fetch_all_comments(fetch_url, output_file)
 output_file.close()
+log("Saved results to {}".format(output_file_path))
