@@ -29,6 +29,7 @@ def load_google_api_key() -> str:
                                 "If you do not have one, you can make one here: https://console.cloud.google.com/apis/credentials\n"
                                 "You also need to enable YouTube Data API: https://console.cloud.google.com/apis/api/youtube.googleapis.com".format(key_path))
     secret = f.read()
+    f.close()
     return secret.strip()
 
 def prepare_youtube_fetch_url(google_api_key: str, video_id: str) -> str:
